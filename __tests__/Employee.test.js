@@ -7,4 +7,4 @@ console.log(employee)
     expect(employee.name).toEqual('Marissa');
     expect(employee.id).toEqual('956');
     expect(employee.email).toEqual('marissa.martinez91@outlook.com');
-})
+});
