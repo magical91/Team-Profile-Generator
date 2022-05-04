@@ -69,21 +69,28 @@ const addEmployee = () => {
       choices: ["Add Another Employee", "I'm Finished"],
     }
   ])
+  .then(chosenOption => {
+    if (chosenOption.employeeOption === 'Add Another Employee') {
+      return employeeQuestions();
+    } else {
+      return chosenOption;
+    }
+  });
 };
 
 
-const employeeQuestions = () => {
+const employeeQuestions = employeeData => {
   return inquirer.prompt ([
     {
       type: "list",
       name: "employeeType",
-      message: "Who would you like to act?",
+      message: "Who would you like to add?",
       choices: ["Engineer", "Intern"],
     },
     {
       type: "input",
       name: "employeeName",
-      message: "Enter the Employee's name:",
+      message: "Enter the employee's name:",
       validate: employeeNameInput => {
         if (employeeNameInput) {
             return true;
@@ -109,7 +116,7 @@ const employeeQuestions = () => {
     {
       type: "input",
       name: "employeeEmail",
-      message: "Enter the Employee's email!",
+      message: "Enter the employee's email",
       validate: employeeEmail => {
         if (employeeEmail) {
             return true;
@@ -152,6 +159,8 @@ const employeeQuestions = () => {
 
 
 promptManager()
+  .then(addEmployee)
+  .then(employeeQuestions)
   .then(employeeData => {
     const pageHTML = generatePage(employeeData);
 
