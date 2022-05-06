@@ -1,6 +1,17 @@
 const fs = require('fs');
+const path = require("path");
 const inquirer = require('inquirer');
-const generatePage = require('./src/page-template')
+const generatePage = require('./src/page-template');
+const Manager = require('./lib/Manager');
+const Engineer = require('./lib/Engineer');
+const Intern = require('./lib/Intern');
+
+const employeeArr = [];
+
+const DIST_DIR = path.resolve(__dirname, "dist");
+const DIST_PATH = path.join(DIST_DIR, "index.html");
+
+
 
 const promptManager = () => {
   return inquirer.prompt ([
@@ -20,7 +31,7 @@ const promptManager = () => {
     {
       type: 'input',
       name: 'employeeId',
-      message: 'What is your Employee ID?(Required)',
+      message: 'What is your employee ID?(Required)',
       validate: employeeIdInput => {
         if (employeeIdInput) {
             return true;
@@ -56,7 +67,15 @@ const promptManager = () => {
         }
       } 
     }
-  ]);
+  ])
+  .then(managerInput => {
+    let { managerName, employeeId, email, officeNumber } = managerInput;
+    let manager = new Manager (managerName, employeeId, email, officeNumber);
+
+    employeeArr.push(manager);
+    console.log(manager.name + ' added')
+    addEmployee()
+  })
 };
 
 
@@ -73,13 +92,13 @@ const addEmployee = () => {
     if (chosenOption.employeeOption === 'Add Another Employee') {
       return employeeQuestions();
     } else {
-      return chosenOption;
+      return buildTeam();
     }
   });
 };
 
 
-const employeeQuestions = employeeData => {
+const employeeQuestions = () => {
   return inquirer.prompt ([
     {
       type: "list",
@@ -155,16 +174,37 @@ const employeeQuestions = employeeData => {
       } 
     }
   ])
+  .then((answer) => {
+
+    switch(answer.employeeType) {
+      case "Engineer":
+      const engineer = new Engineer(answer.employeeName, answer.employeeID, answer.employeeEmail, answer.employeeGithub)
+      employeeArr.push(engineer)
+      break;
+
+      case "Intern":
+        const intern = new Intern(answer.employeeName, answer.employeeID, answer.employeeEmail, answer.employeeSchool)
+        employeeArr.push(intern)
+      break;
+    }
+
+    addEmployee()
+  })
 };
 
 
 promptManager()
-  .then(addEmployee)
-  .then(employeeQuestions)
-  .then(employeeData => {
-    const pageHTML = generatePage(employeeData);
 
-    fs.writeFile('./dist/index.html', pageHTML, err => {
+
+  function buildTeam(){
+    if(!fs.existsSync(DIST_DIR)){
+      fs.mkdirSync(DIST_DIR)
+    }
+    const pageHTML = generatePage(employeeArr);
+
+
+
+    fs.writeFileSync(DIST_PATH, pageHTML, err => {
         if (err) {
             console.log(err);
             return;
@@ -172,4 +212,4 @@ promptManager()
         console.log("Page created! Checkout index.html in this directory to see it!")
 
     })
-  })
+  }
