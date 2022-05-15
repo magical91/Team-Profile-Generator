@@ -4,11 +4,13 @@ const generateTeam = team => {
        return `
        <div class="card" style="width: 18rem;">
        <div class="card-body">
-         <h5 class="card-title">${manager.getRole()}</h5>
-         <p class="card-text">${manager.getName()}</p>
-         <p class="card-text">${manager.getId()}</p>
-         <p class="card-text">${manager.getEmail()}</p>
-         <p class="card-text">${manager.getOfficeNumber()}</p
+         <h4 class="card-title text-decoration-underline text-center">${manager.getRole()}</h4>
+         <p class="card-text">Name: ${manager.getName()}</p>
+         <p class="card-text">Id: ${manager.getId()}</p>
+         <a href="mailto:${manager.getEmail()}" class="card-text text-decoration-none">${manager.getEmail()}</a>
+         <br>
+         <br>
+         <p class="card-text">Office Number: ${manager.getOfficeNumber()}</p>
        </div>
      </div>
         `
@@ -18,11 +20,13 @@ const generateTeam = team => {
         return `
         <div class="card" style="width: 18rem;">
         <div class="card-body">
-          <h5 class="card-title">${engineer.getRole()}</h5>
-          <p class="card-text">${engineer.getName()}</p>
-          <p class="card-text">${engineer.getId()}</p>
-          <p class="card-text">${engineer.getEmail()}</p>
-          <p class="card-text">${engineer.getGithub()}</p>
+          <h4 class="card-title text-decoration-underline text-center">${engineer.getRole()}</h4>
+          <p class="card-text">Name: ${engineer.getName()}</p>
+          <p class="card-text">Id: ${engineer.getId()}</p>
+          <a href="mailto:${engineer.getEmail()}" class="card-text text-decoration-none">${engineer.getEmail()}</a>
+          <br>
+          <br>
+          <a href="https://github.com/${engineer.getGithub()}" class="card-text text-reset text-decoration-none">Github: ${engineer.getGithub()}</a>
         </div>
       </div>
          `
@@ -32,11 +36,13 @@ const generateTeam = team => {
         return `
         <div class="card" style="width: 18rem;">
         <div class="card-body">
-          <h5 class="card-title">${intern.getRole()}</h5>
-          <p class="card-text">${intern.getName()}</p>
-          <p class="card-text">${intern.getId()}</p>
-          <p class="card-text">${intern.getEmail()}</p>
-          <p class="card-text">${intern.getSchool()}</p>
+          <h4 class="card-title text-decoration-underline text-center">${intern.getRole()}</h4>
+          <p class="card-text">Name: ${intern.getName()}</p>
+          <p class="card-text">Id: ${intern.getId()}</p>
+          <a href="mailto:${intern.getEmail()}" class="card-text text-decoration-none">${intern.getEmail()}</a>
+          <br>
+          <br>
+          <p class="card-text">School: ${intern.getSchool()}</p>
         </div>
       </div>
          `
@@ -66,10 +72,19 @@ module.exports = templateData => {
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
         <link href="https://fonts.googleapis.com/css?family=Public+Sans:300i,300,500&display=swap" rel="stylesheet">
-        <title>Document</title>
+        <link rel=stylesheet" href="./style.css" />
+        <title>Team Profile</title>
     </head>
     <body>
-        ${generateTeam(templateData)}
+      <header>
+        <h1 class="text-center text-info bg-danger">
+          Team Profile
+        </h1>  
+      </header>
+
+        <div class="d-flex justify-content-around">
+            ${generateTeam(templateData)}
+        </div>    
     </body>
     </html>
     `;
