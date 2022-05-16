@@ -17,6 +17,6 @@ Create a team profile for a manager with easy readability
 
 [https://github.com/magical91/Team-Profile-Generator](https://github.com/magical91/Team-Profile-Generator)
 
-Walkthrough Video - [extension://mmeijimgabbpbgpdklnllpncmdofkcpn/app.html#/files/8da42ad6-8d45-4ebc-y4df-4c461d087cbe](extension://mmeijimgabbpbgpdklnllpncmdofkcpn/app.html#/files/8da42ad6-8d45-4ebc-y4df-4c461d087cbe)
+[Walkthrough Video](extension://mmeijimgabbpbgpdklnllpncmdofkcpn/app.html#/files/8da42ad6-8d45-4ebc-y4df-4c461d087cbe)
 
-![Screen Shot]()
+![Screen Shot](https://github.com/magical91/Team-Profile-Generator/blob/main/images/sc1.png?raw=true)
